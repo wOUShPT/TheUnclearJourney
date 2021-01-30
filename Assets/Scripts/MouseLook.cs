@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,14 @@ public class MouseLook : MonoBehaviour
     public float mouseSensitivity = 200f;
     public Transform playerBody;
     float xRotation = 0f;
-    // Start is called before the first frame update
+
+    private bool canMove;
+
+    private void Awake()
+    {
+        canMove = true;
+    }
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -16,13 +24,21 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        if (canMove)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        xRotation -= mouseY; // mover vertical
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            xRotation -= mouseY; // mover vertical
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX); // mover horizontal
+            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            playerBody.Rotate(Vector3.up * mouseX); // mover horizontal
+        }
+    }
+    
+    public void ActivateDeactivate()
+    {
+        canMove = !canMove;
     }
 }
