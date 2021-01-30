@@ -954,6 +954,7 @@ GameObject:
   - component: {fileID: 2029830166}
   - component: {fileID: 2029830165}
   - component: {fileID: 2029830167}
+  - component: {fileID: 2029830168}
   m_Layer: 0
   m_Name: FirstPersonPlayer
   m_TagString: Player
@@ -1009,6 +1010,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2029830165}
   speed: 12
+--- !u!114 &2029830168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029830164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b1abd4a8e9fca142813e4ddac40cb71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _postProcessVolume: {fileID: 737019562}
+  defaultApertureValue: 0
+  visionCoolDownTime: 5
+  visionTime: 3
 --- !u!1 &2030343591
 GameObject:
   m_ObjectHideFlags: 0
