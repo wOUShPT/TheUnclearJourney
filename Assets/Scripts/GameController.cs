@@ -23,9 +23,12 @@ public class GameController : MonoBehaviour
     public AudioClip FuckMyFeetAreFreezing;
     public AudioClip AhShitIcanCantSee;
     public AudioClip WheresTheKey;
+    public AudioClip WhyBathLocked;
     public AudioClip AhMuchBetter;
     public AudioClip INeedToFindMySlippers;
     public AudioClip FuckOFf;
+    public AudioClip INeedCoffee;
+    public AudioClip FuckYeahImGonnaFindMyGlasses;
     private ItemInteractionBehaviour _ItemInteractionBehaviour;
     private ItemSound _ItemSound;
     public UnityEvent firstDoorEvent;
@@ -88,6 +91,7 @@ public class GameController : MonoBehaviour
                 {
                     _ItemSound.PlayPickupKey();
                     isKeyTaken = true;
+                    StartCoroutine(FuckYeahImFinGlasses());
                 }
                 doorBehaviours[2].canOpen = true;
             }
@@ -176,6 +180,40 @@ public class GameController : MonoBehaviour
         sceneTransitionAnimator.SetTrigger("Start");
         yield return new WaitForSeconds(0.6f);
         UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+        yield return null;
+    }
+
+
+    public IEnumerator NeedCoffee()
+    {
+        yield return new WaitForSeconds(1);
+        monologuesAudioSource.clip = INeedCoffee;
+        monologuesAudioSource.Play();
+        float waitTime = INeedCoffee.length; 
+        yield return  new WaitForSeconds(waitTime+0.1f);
+        yield return null;
+    }
+
+    public IEnumerator KeyMonologue()
+    {
+        monologuesAudioSource.clip = WhyBathLocked;
+        monologuesAudioSource.Play();
+        float waitTime = WhyBathLocked.length; 
+        yield return  new WaitForSeconds(waitTime+0.2f);
+        monologuesAudioSource.clip = WheresTheKey;
+        monologuesAudioSource.Play();
+        waitTime = WheresTheKey.length;
+        yield return  new WaitForSeconds(waitTime+0.1f);
+        yield return null;
+    }
+
+    public IEnumerator FuckYeahImFinGlasses()
+    {
+        yield return new WaitForSeconds(1);
+        monologuesAudioSource.clip = FuckYeahImGonnaFindMyGlasses;
+        monologuesAudioSource.Play();
+        float waitTime = FuckYeahImGonnaFindMyGlasses.length; 
+        yield return  new WaitForSeconds(waitTime+0.1f);
         yield return null;
     }
 }

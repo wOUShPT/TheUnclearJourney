@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class EndGame : MonoBehaviour
 {
     public UnityEvent endGame;
-    private Transform mirrorTransform;
+    public Transform mirrorTransform;
     private Transform PlayerTransform;
     
     void Update()
