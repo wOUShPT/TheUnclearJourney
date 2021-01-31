@@ -35,22 +35,23 @@ public class GameController : MonoBehaviour
     public UnityEvent drinkCoffeeEvent;
     private bool isPlayingMonologue;
     private GameObject player;
-    private VisionBehaviour _VisionBehaviour;
-    private PlayerMovement _PlayerMovement;
-    private MouseLook _MouseLook;
+    public VisionBehaviour _VisionBehaviour;
+    public PlayerMovement _PlayerMovement;
+    public MouseLook _MouseLook;
     private Animator sceneTransitionAnimator;
+    private EndGame _EndGame;
 
     private void Awake()
     {
         sceneTransitionAnimator = GameObject.FindGameObjectWithTag("SceneTransition").GetComponent<Animator>();
-        _VisionBehaviour = player.GetComponent<VisionBehaviour>();
-        _PlayerMovement = player.GetComponent<PlayerMovement>();
-        _MouseLook = player.GetComponent<MouseLook>();
+        player = GameObject.FindGameObjectWithTag("Player");
         _ItemSound = GameObject.FindGameObjectWithTag("Player").GetComponent<ItemSound>();
         _ItemSound.slurped.AddListener(AfterSlurpLine);
         isBoxClosed = true;
         isKeyTaken = false;
         isPlayingMonologue = false;
+        _EndGame = gameObject.GetComponent<EndGame>();
+        _EndGame.endGame.AddListener(EndGame);
     }
 
     private void Start()
@@ -165,9 +166,11 @@ public class GameController : MonoBehaviour
     {
         _PlayerMovement.enabled = false;
         _MouseLook.enabled = false;
+        _VisionBehaviour.AutoFocus();
+        yield return new WaitForSeconds(2f);
         monologuesAudioSource.clip = FuckOFf;
         monologuesAudioSource.Play();
-        float waitTime = FuckOFf.length; 
+        float waitTime = FuckOFf.length;
         yield return  new WaitForSeconds(waitTime);
         sceneTransitionAnimator.speed = 2;
         sceneTransitionAnimator.SetTrigger("Start");

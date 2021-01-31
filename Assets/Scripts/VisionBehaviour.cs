@@ -108,4 +108,25 @@ public class VisionBehaviour : MonoBehaviour
 
         staminaBarUI.value = _currentStamina;
     }
+
+    public void AutoFocus()
+    {
+        StartCoroutine(Focus());
+    }
+
+    IEnumerator Focus()
+    {
+        while (true)
+        {
+            eyesAnimator.SetBool("canFocus", true);
+            _currentStamina -= (staminaAmount / visionTime) * Time.deltaTime;
+            _currentStamina = Mathf.Clamp(_currentStamina, 0, staminaAmount);
+            playerCamera = Camera.main;
+            _depthOfField.aperture.value = focusApertureValue;
+            _currentFOV = Mathf.RoundToInt(Mathf.SmoothStep(_currentFOV, focusFOV, focusFOVSpeed*Time.deltaTime));
+            playerCamera.fieldOfView = _currentFOV;
+            yield return null;
+        }
+    }
+   
 }
