@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Experimental.Playables;
-using UnityEngine.UIElements;
 
 public class GameController : MonoBehaviour
 {
