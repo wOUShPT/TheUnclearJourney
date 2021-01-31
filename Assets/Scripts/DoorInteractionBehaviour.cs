@@ -30,7 +30,6 @@ public class DoorInteractionBehaviour : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 doorInteraction.Invoke(currentInteractible);
-                Debug.Log("Open Door");
             }
         }
     }

@@ -6,32 +6,29 @@ using UnityEngine.Events;
 public class DoorController : MonoBehaviour
 {
     public List<Animator> _doorAnimators;
+    public List<DoorBehaviour> _DoorBehaviours;
     public DoorInteractionBehaviour _doorInteractionBehaviour;
     void Start()
     {
         _doorInteractionBehaviour.doorInteraction.AddListener(Open);
     }
-
-   
-    void Update()
-    {
-        
-    }
+    
 
     void Open(GameObject door)
     {
-        foreach (var doorAnimator in _doorAnimators)
+        for (int i = 0; i < _doorAnimators.Count; i++)
         {
-            if (door.transform.parent.gameObject.transform.parent.gameObject == doorAnimator.gameObject)
+            if (door.transform.parent.gameObject.transform.parent.gameObject == _doorAnimators[i].gameObject && _DoorBehaviours[i].canOpen)
             {
-                doorAnimator.SetBool("Open", true);
+                _doorAnimators[i].SetBool("Open", true);
+                _DoorBehaviours[i].PlayOpenSound();
+            }
+
+            if (door.transform.parent.gameObject.transform.parent.gameObject == _doorAnimators[i].gameObject &&
+                !_DoorBehaviours[i].canOpen)
+            {
+                _DoorBehaviours[i].PlayLockedSound();
             }
         }
-        
-    }
-
-    void Close(GameObject door)
-    {
-        //_doorAnimator.SetBool("Close", false);
     }
 }

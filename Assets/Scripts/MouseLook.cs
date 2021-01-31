@@ -41,4 +41,9 @@ public class MouseLook : MonoBehaviour
     {
         canMove = !canMove;
     }
+
+    public void ResetXRotation()
+    {
+        xRotation = 0;
+    }
 }
